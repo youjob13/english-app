@@ -1,79 +1,99 @@
-const startBtn = document.getElementById("start");
-const skipAnswerBtn = document.getElementById("skip");
 const app = document.querySelector(".app");
-let giveAnswerBtn;
-const arr = [
-  {
-    id: 0,
-    word: "Apple",
-    translation: "Яблоко",
-  },
-  {
-    id: 1,
-    word: "Burn",
-    translation: "Сжигать",
-  },
-  {
-    id: 2,
-    word: "Obviously",
-    translation: "Очевидно",
-  },
-  {
-    id: 3,
-    word: "Cause",
-    translation: "Причина",
-  },
-  {
-    id: 4,
-    word: "Exactly",
-    translation: "Именно",
-  },
-];
-const rightAnswer = [];
-const loseAnswer = [];
-// Returns a random number in a given range
-function digitalRandom(min, max) {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-}
-function giveAnswer(e) {
-  e.preventDefault();
-  //   const inputForAnswer = document.getElementById("field-for-answer");
-  console.log(1);
-  console.log(inputForAnswer.value);
-}
-function askQuestion(question) {
-  const questionBlock = `<div class='question-block'>
-<h2>${question.word}</h2>
-  <p>${question.translation}</p>
+
+class TasksGenerate {
+  constructor() {
+    this.listQuestions = [
+      {
+        id: 0,
+        word: "Apple",
+        translation: "Яблоко",
+      },
+      {
+        id: 1,
+        word: "Burn",
+        translation: "Сжигать",
+      },
+      {
+        id: 2,
+        word: "Obviously",
+        translation: "Очевидно",
+      },
+      {
+        id: 3,
+        word: "Cause",
+        translation: "Причина",
+      },
+      {
+        id: 4,
+        word: "Exactly",
+        translation: "Именно",
+      },
+    ];
+    this.rightAnswers = [];
+    this.loseAnswers = [];
+    this.currentQuestion = 0;
+    this.swapsArr = [];
+    this.inputValue = "";
+  }
+  digitalRandom(min, max) {
+    return Math.floor(min + Math.random() * (max + 1 - min));
+  }
+  askQuestion(question) {
+    const questionBlock = `<div class='question-block'>
+  <h2>${question.word}</h2>
     <input id='field-for-answer' type='text'>
   <div class='question-buttons'>
     <button id='give'>Give answer</button>
     <button id='skip' class='skip-answer'>Skip answer</button>
   </div>
   </div>`;
-  app.innerHTML = questionBlock;
-  giveAnswerBtn = document.getElementById("give");
-}
+    app.innerHTML = questionBlock;
+  }
+  startTask() {
+    const cloneArr = [...this.listQuestions];
+    this.listQuestions.forEach(() => {
+      this.swapsArr.push(
+        ...cloneArr.splice(this.digitalRandom(0, cloneArr.length - 1), 1)
+      );
+    });
+    this.askQuestion(this.swapsArr[this.currentQuestion]);
+    this.currentQuestion++;
+  }
+  giveAnswer() {
+    if (
+      this.inputValue === this.swapsArr[this.currentQuestion - 1].translation
+    ) {
+      this.rightAnswers.push(this.swapsArr[this.currentQuestion - 1]);
+    } else {
+      this.loseAnswers.push(this.swapsArr[this.currentQuestion - 1]);
+    }
 
-function completeQuestion(answer, bool) {
-  if (answer === bool) {
-    rightAnswer.push(answer);
-  } else {
-    loseAnswer.push(answer);
+    this.askQuestion(this.swapsArr[this.currentQuestion]);
+    this.currentQuestion++;
+  }
+  skipQuestion() {
+    this.askQuestion(this.swapsArr[this.currentQuestion]);
+    this.currentQuestion++;
+  }
+  eventsListener() {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("#start")) {
+        this.startTask();
+      }
+      if (e.target.closest("#skip")) {
+        this.skipQuestion();
+      }
+      if (e.target.closest("#give")) {
+        this.giveAnswer();
+      }
+    });
+    document.addEventListener("input", (e) => {
+      if (e.target.closest("#field-for-answer")) {
+        this.inputValue = e.target.value;
+      }
+    });
   }
 }
 
-// Run the test
-function startTest() {
-  const swapsArr = [];
-  const cloneArr = [...arr];
-  arr.forEach(() => {
-    swapsArr.push(...cloneArr.splice(digitalRandom(0, cloneArr.length - 1), 1));
-  });
-  console.table(swapsArr);
-  askQuestion(swapsArr[0]);
-}
-
-startBtn.addEventListener("click", startTest);
-// skipAnswerBtn.addEventListener("click", );
-giveAnswerBtn.addEventListener("click", giveAnswer);
+const task = new TasksGenerate();
+task.eventsListener();
