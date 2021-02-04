@@ -46,7 +46,7 @@ class TasksGenerate {
   openMenu() {
     app.innerHTML = "";
     const menu = document.createElement("div");
-    menu.classList.add("menu");
+    menu.classList.add("block", "menu");
 
     const h1 = document.createElement("h1");
     h1.classList.add("menu-title");
@@ -72,9 +72,51 @@ class TasksGenerate {
     menu.append(this.createCloseBtn());
     app.append(menu);
   }
+  openVocabulary() {
+    app.innerHTML = "";
+
+    const vocabularyBlock = document.createElement("div");
+    vocabularyBlock.classList.add(`block`, `vocabulary-block`);
+
+    const addWordBlock = document.createElement("div");
+    addWordBlock.classList.add("vocabulary-add");
+
+    const h2 = document.createElement("h2");
+    h2.textContent = "Write the word you would like to learn and add it";
+
+    const input = document.createElement("input");
+    input.id = "vocabulary-input";
+
+    const button = document.createElement("button");
+    button.id = "add-word";
+    button.textContent = "Add word";
+
+    const h2List = document.createElement("h2");
+    h2List.textContent = "Added words";
+
+    const ul = document.createElement("ul");
+    ul.classList.add("vocabulary-list");
+
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+
+    addWordBlock.append(input);
+    addWordBlock.append(button);
+
+    vocabularyBlock.append(h2);
+    vocabularyBlock.append(addWordBlock);
+    vocabularyBlock.append(h2List);
+    vocabularyBlock.append(ul);
+    vocabularyBlock.append(this.createCloseBtn());
+    app.append(vocabularyBlock);
+  }
   giveResult() {
+    app.innerHTML = "";
+
     const resultBlock = document.createElement("div");
-    resultBlock.classList.add("result-block");
+    resultBlock.classList.add("block", "result-block");
 
     const h2 = document.createElement("h2");
     h2.textContent = "Decision result";
@@ -127,7 +169,7 @@ class TasksGenerate {
     } else {
       app.innerHTML = "";
       const questionBlock = document.createElement("div");
-      questionBlock.classList.add("question-block");
+      questionBlock.classList.add("block", "question-block");
 
       const h2 = document.createElement("h2");
       h2.textContent = `${question.word}`;
@@ -205,7 +247,7 @@ class TasksGenerate {
   }
   showResults() {
     const results = document.createElement("div");
-    results.classList.add("extended-results");
+    results.classList.add("block", "extended-results");
 
     const resultsTrue = document.createElement("div");
     resultsTrue.classList.add("result-list");
@@ -260,6 +302,9 @@ class TasksGenerate {
       }
       if (e.target.closest("#go-to-menu")) {
         this.openMenu();
+      }
+      if (e.target.closest("#vocabulary")) {
+        this.openVocabulary();
       }
     });
 

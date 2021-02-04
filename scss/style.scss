@@ -20,7 +20,9 @@ h6,
 p,
 span,
 ul,
-li {
+li,
+button,
+input {
     margin: 0;
     padding: 0;
 }
@@ -35,7 +37,7 @@ li {
     margin: 0 auto;
 }
 
-/* Common tags/classes */
+/* Common tags / classes */
 button {
     margin: 0 auto;
     display: block;
@@ -62,6 +64,26 @@ button {
     &:focus {
         outline: none;
     }
+}
+
+input {
+    border-radius:4px;
+    padding: 0 6px;
+    font-size: 15px;
+    border:2px solid #383838;
+    &:focus {
+        outline: none;
+    }
+}
+
+.block {
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
+    border-radius:8px;
+    padding: 30px 20px;
 }
 
 .close-btn {
@@ -119,18 +141,14 @@ button {
         transform: translate(-50%, -50%) rotate(-45deg);
     }
 }
+
 // Menu 
 .menu {
     background-color:rgb(18, 247, 159);
     height: 300px;
-    border-radius:8px;
     width: 500px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%,-50%);
     display: flex;
-    box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
     flex-direction: column;
     align-items:center;
     &-title {
@@ -152,27 +170,22 @@ button {
         margin-bottom: 10px;
     }
 }
+
 /* Question / result */
 .question-block,
 .result-block {
-    border-radius: 4px;
-    box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
     width: 300px;
     height: 380px;
     color: #fff;
     text-align: center;
-    padding: 30px 20px;
-    position: absolute;
-    left:50%;
-    top:50%;
-    transform: translate(-50%,-50%);
 }
+
 .result {
     &-block {
         background-color: rgb(61, 141, 194);
         display: flex;
-        flex-direction: column;
         text-shadow: 0.15em 0.15em rgba(0, 0, 0, 0.5);
+        flex-direction: column;
         h2 {
             position: relative;
             flex: 1;
@@ -248,16 +261,10 @@ button {
 .extended-results {
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 660px;
     height: 600px;
     background-color: rgb(234, 188, 238);
     padding: 22px 40px;
-    border-radius: 8px;
-    box-shadow: 0.5em 0.5em rgba(109, 109, 109, 0.5);
     .result-list {
         text-align: center;
         flex: 1 1 0px;
@@ -304,5 +311,43 @@ button {
         margin: 5px 0;
         color: rgb(14, 86, 119);
         font-weight: 500;
+    }
+}
+
+/* Vocabulary block */
+.vocabulary {
+    &-block {
+        background-color:burlywood;
+        width: 400px;
+        height: 600px;
+        h2 {
+            text-align: center;
+            font-size: 21px;
+            margin-bottom: 20px;
+            color:#252525;
+        }
+    }
+    &-add {
+        display: flex;
+        height:30px;
+        input {
+            margin-right: 10px;
+        }
+        margin-bottom: 60px;
+    }
+    &-list {
+        padding: 10px;
+        border-radius: 8px;
+        margin: 0 auto;
+        border:10px solid #fff;
+        background-color:#fff;
+        width: 300px;
+        height: 340px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        li {
+            font-weight: 500;
+            color:rgb(56, 56, 56);
+        }
     }
 }
