@@ -41,16 +41,16 @@ class TasksGenerate {
   giveResult() {
     const result = `
     <div class='result-block'>
-      <h2>Ну повезет еще в чем нибудь! ^_=</h2>
+      <h2>Decision result</h2>
       <div class='result-score'>
-        <p>Правильных ответов - ${this.rightAnswers.length}</p>
-        <p>Неправильных ответов - ${this.loseAnswers.length}</p>
-        <p>Пропущенных ответов - ${this.skipAnswers.length}</p>
+        <p>Right answers - ${this.rightAnswers.length}</p>
+        <p>Wrong asnwers - ${this.loseAnswers.length}</p>
+        <p>Skiped answers - ${this.skipAnswers.length}</p>
       </div>
       <div class='result-buttons'>
-        <button id='try-again'>Пройти заново</button>
-        <button id='show-result'>Посмотреть результаты</button>
-        <button id='go-to-menu'>Перейти в меню</button>
+        <button id='try-again'>Try again</button>
+        <button id='show-result'>Show results</button>
+        <button id='go-to-menu'>Menu</button>
       </div>
     </div>`;
     app.innerHTML = result;
@@ -122,7 +122,7 @@ class TasksGenerate {
     results.classList.add("extended-results");
     // Close button
     const closeBtn = document.createElement("div");
-    closeBtn.classList.add("closeBtn");
+    closeBtn.classList.add("close-btn");
     // Lists wrappers
     const resultsTrue = document.createElement("div");
     resultsTrue.classList.add("result-list");
@@ -134,9 +134,9 @@ class TasksGenerate {
     const h3Right = document.createElement("h3");
     const h3Lose = document.createElement("h3");
     const h3Skip = document.createElement("h3");
-    h3Right.textContent = "Правильно";
-    h3Lose.textContent = "Неправильно";
-    h3Skip.textContent = "Пропущено";
+    h3Right.textContent = "Right";
+    h3Lose.textContent = "Wrong";
+    h3Skip.textContent = "Skiped";
     // Lists answers
     const ulRight = document.createElement("ul");
     ulRight.append(this.getListContent(this.rightAnswers));
