@@ -146,14 +146,13 @@ button:focus {
 .menu-btn {
   box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
 }
-.menu .start {
+.menu-btn:first-child {
   margin-bottom: 10px;
 }
 
 /* Question / result */
 .question-block,
 .result-block {
-  margin: 40px auto;
   border-radius: 4px;
   box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
   width: 300px;
@@ -161,7 +160,10 @@ button:focus {
   color: #fff;
   text-align: center;
   padding: 30px 20px;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .result-block {
