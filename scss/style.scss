@@ -173,7 +173,29 @@ input {
     }
 }
 
-// Menu 
+/* Popup */
+.popup {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color:rgba(0,0,0,0.5);
+    &-confirm {
+        text-align: center;
+        color:#fff;
+        background-color:rgb(81, 140, 248);
+        &_buttons {
+            height: 30px;
+            margin-top: 30px;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+        }
+    }
+}
+
+/* Menu */
 .menu {
     background-color:rgb(18, 247, 159);
     height: 300px;
@@ -290,13 +312,18 @@ input {
 
 /* Extended results of the completed task */
 .extended-results {
-    display: flex;
-    justify-content: space-between;
+    overflow-y:scroll;
+    overflow-x: hidden;
     width: 660px;
     height: 600px;
     background-color: rgb(234, 188, 238);
     padding: 22px 40px;
+    &_wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
     .result-list {
+        min-height: 600px;
         text-align: center;
         flex: 1 1 0px;
         margin-right: 10px;

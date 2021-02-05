@@ -2,33 +2,8 @@ const app = document.querySelector(".app");
 
 class TasksGenerate {
   constructor() {
-    this.listQuestions = [
-      {
-        id: 0,
-        word: "Apple",
-        translation: "Яблоко",
-      },
-      {
-        id: 1,
-        word: "Burn",
-        translation: "Сжигать",
-      },
-      {
-        id: 2,
-        word: "Obviously",
-        translation: "Очевидно",
-      },
-      {
-        id: 3,
-        word: "Cause",
-        translation: "Причина",
-      },
-      {
-        id: 4,
-        word: "Exactly",
-        translation: "Именно",
-      },
-    ];
+    this.listQuestions =
+      JSON.parse(localStorage.getItem("vocabularyList")) || [];
     this.rightAnswers = [];
     this.loseAnswers = [];
     this.skipAnswers = [];
@@ -43,6 +18,7 @@ class TasksGenerate {
   createCloseBtn() {
     const closeBtn = document.createElement("div");
     closeBtn.classList.add("close-btn");
+    closeBtn.id = "return-menu";
     return closeBtn;
   }
   openMenu() {
@@ -77,10 +53,6 @@ class TasksGenerate {
   createListVocabulary() {
     const ul = document.createElement("ul");
     ul.classList.add("vocabulary-list");
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
     ul.append(this.getListContent(this.listQuestions));
     return ul;
   }
@@ -222,6 +194,7 @@ class TasksGenerate {
     this.loseAnswers = [];
     this.skipAnswers = [];
     this.rightAnswers = [];
+    this.swapsArr = [];
 
     const cloneArr = [...this.listQuestions];
     this.listQuestions.forEach(() => {
@@ -229,6 +202,7 @@ class TasksGenerate {
         ...cloneArr.splice(this.digitalRandom(0, cloneArr.length - 1), 1)
       );
     });
+    console.log(this.swapsArr);
     this.askQuestion(this.swapsArr[0]);
   }
   giveAnswer() {
@@ -267,6 +241,9 @@ class TasksGenerate {
     const results = document.createElement("div");
     results.classList.add("block", "extended-results");
 
+    const resultsWrapper = document.createElement("div");
+    resultsWrapper.classList.add("extended-results_wrapper");
+
     const resultsTrue = document.createElement("div");
     resultsTrue.classList.add("result-list");
     const resultsLose = document.createElement("div");
@@ -296,10 +273,10 @@ class TasksGenerate {
     h3Lose.after(ulLose);
     h3Skip.after(ulSkip);
 
-    results.append(resultsTrue);
-    results.append(resultsLose);
-    results.append(resultsSkip);
-
+    resultsWrapper.append(resultsTrue);
+    resultsWrapper.append(resultsLose);
+    resultsWrapper.append(resultsSkip);
+    results.append(resultsWrapper);
     results.append(this.createCloseBtn());
 
     app.append(results);
@@ -310,7 +287,49 @@ class TasksGenerate {
       word: this.inputValueNewWord,
       translation: this.inputValueNewWordTranslation,
     });
+    localStorage.setItem("vocabularyList", JSON.stringify(this.listQuestions));
     this.openVocabulary();
+  }
+  popupConfirm(title = "") {
+    const popup = document.createElement("div");
+    popup.classList.add("popup");
+
+    const popupConfirm = document.createElement("div");
+    popupConfirm.classList.add("block", "popup-confirm");
+
+    const popupNotice = document.createElement("h2");
+    popupNotice.textContent = `${title}`;
+
+    const buttonsBlock = document.createElement("div");
+    buttonsBlock.classList.add("popup-confirm_buttons");
+
+    const buttonYes = document.createElement("button");
+    buttonYes.id = "yes";
+    buttonYes.textContent = "Yes";
+
+    const buttonNo = document.createElement("button");
+    buttonNo.id = "no";
+    buttonNo.textContent = "No";
+
+    buttonsBlock.append(buttonYes);
+    buttonsBlock.append(buttonNo);
+
+    popupConfirm.append(popupNotice);
+    popupConfirm.append(buttonsBlock);
+
+    popup.append(popupConfirm);
+    app.append(popup);
+  }
+  createPopup() {
+    if (document.querySelector(".question-block")) {
+      this.popupConfirm("Your progress will be lost, are you sure?");
+    }
+    if (document.querySelector(".vocabulary-block")) {
+      this.openMenu();
+    }
+  }
+  deletePopup() {
+    document.querySelector(".popup").remove();
   }
   eventsListener() {
     document.addEventListener("click", (e) => {
@@ -335,6 +354,22 @@ class TasksGenerate {
       if (e.target.closest("#add-word")) {
         this.addWord();
       }
+      if (e.target.closest("#return-menu")) {
+        this.createPopup();
+      }
+      if (e.target.closest("#yes")) {
+        this.openMenu();
+      }
+      if (e.target.closest("#no")) {
+        this.deletePopup();
+      }
+    });
+
+    document.addEventListener("keyup", (e) => {
+      if (document.getElementById("add-word") && e.key === "Enter") {
+        console.log(1);
+        this.addWord();
+      }
     });
 
     document.addEventListener("input", (e) => {
@@ -344,13 +379,13 @@ class TasksGenerate {
       }
       if (e.target.closest("#vocabulary-input_word")) {
         e.target.value = e.target.value
-          .replace(/[^a-z]/gi, "")
+          .replace(/[^a-z\s]/gi, "")
           .replace(/^[a-z]/, (u) => u.toUpperCase());
         this.inputValueNewWord = e.target.value;
       }
       if (e.target.closest("#vocabulary-input_translation")) {
         e.target.value = e.target.value
-          .replace(/[^а-я]/gi, "")
+          .replace(/[^а-я\s/,]/gi, "")
           .replace(/^[а-я]/, (u) => u.toUpperCase());
         this.inputValueNewWordTranslation = e.target.value;
       }

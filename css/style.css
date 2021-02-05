@@ -171,6 +171,29 @@ input:focus {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/* Popup */
+.popup {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup-confirm {
+  text-align: center;
+  color: #fff;
+  background-color: #518cf8;
+}
+.popup-confirm_buttons {
+  height: 30px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Menu */
 .menu {
   background-color: #12f79f;
   height: 300px;
@@ -281,14 +304,19 @@ input:focus {
 
 /* Extended results of the completed task */
 .extended-results {
-  display: flex;
-  justify-content: space-between;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 660px;
   height: 600px;
   background-color: #eabcee;
   padding: 22px 40px;
 }
+.extended-results_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 .extended-results .result-list {
+  min-height: 600px;
   text-align: center;
   flex: 1 1 0px;
   margin-right: 10px;
