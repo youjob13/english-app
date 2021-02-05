@@ -251,9 +251,9 @@ class TasksGenerate {
     const resultsSkip = document.createElement("div");
     resultsSkip.classList.add("result-list");
 
-    const h3Right = document.createElement("h3");
-    const h3Lose = document.createElement("h3");
-    const h3Skip = document.createElement("h3");
+    const h3Right = document.createElement("h2");
+    const h3Lose = document.createElement("h2");
+    const h3Skip = document.createElement("h2");
     h3Right.textContent = "Right";
     h3Lose.textContent = "Wrong";
     h3Skip.textContent = "Passed";

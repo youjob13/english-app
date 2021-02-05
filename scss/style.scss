@@ -1,3 +1,33 @@
+/* Variables */
+$bg-menu: #12f79f;
+$color-text_light: #fff;
+$color-text_menu:#d0dd18;
+$color-text_btn:#841111;
+$color-text_li:rgb(14, 86, 119);
+
+/* Mixins */
+@mixin h1-text () {
+    text-shadow:0.1em 0.1em rgba(0, 0, 0, 0.5);
+    font-size: 35px;
+}
+
+@mixin h2-text () {
+    text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+    font-size: 26px;
+}
+
+@mixin p-text () {
+    text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    font-size: 22px;
+}
+
+@mixin li-text () {
+    font-weight: 500;
+    font-size: 18px;
+    color:$color-text_li;
+}
+
 /* Common settings */
 body {
     margin: 0;
@@ -62,6 +92,7 @@ li {
 ::-webkit-resizer {
     background-color: #666;
 }
+
 /* Container */
 .container {
     max-width: 1200px;
@@ -81,6 +112,7 @@ button {
     padding: 6px 10px;
     width: 150px;
     transition: 0.2s;
+    box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
     &:hover {
         color: rgb(50, 43, 151);
         font-size: 16px;
@@ -196,7 +228,7 @@ input {
 
 /* Menu */
 .menu {
-    background-color:rgb(18, 247, 159);
+    background-color:$bg-menu;
     height: 300px;
     width: 500px;
     transform: translate(-50%,-50%);
@@ -204,19 +236,16 @@ input {
     flex-direction: column;
     align-items:center;
     &-title {
+        @include h1-text();
         display: flex;
         align-items:center;
         flex:1;
-        color:rgb(208, 221, 24);
-        text-shadow:0.1em 0.1em rgba(0,0,0,0.5);
+        color:$color-text_menu;
     }
     &-buttons {
         display: flex;
         flex-direction: column;
         flex:1;
-    }
-    &-btn {
-        box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
     }
     &-btn:first-child {
         margin-bottom: 10px;
@@ -228,17 +257,17 @@ input {
 .result-block {
     width: 300px;
     height: 380px;
-    color: #fff;
+    color: $color-text_light;
     text-align: center;
 }
 
 .result {
     &-block {
-        background-color: rgb(61, 141, 194);
         display: flex;
-        text-shadow: 0.15em 0.15em rgba(0, 0, 0, 0.5);
         flex-direction: column;
+        background-color: rgb(61, 141, 194);
         h2 {
+            @include h2-text ();
             position: relative;
             flex: 1;
             display: flex;
@@ -263,10 +292,8 @@ input {
             }
         }
         p {
-            font-size: 22px;
-            font-weight: 500;
-            width: 300px;
-            padding: 11px 0;
+            @include p-text();
+            padding: 10px 0;
         }
         button {
             margin: 4px auto;
@@ -276,14 +303,10 @@ input {
         }
     }
     &-score {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         flex: 1;
     }
     &-buttons {
-        min-height: 100px;
-        max-height: 100px;
+        height: 100px;
         flex: 1;
     }
 }
@@ -292,9 +315,8 @@ input {
     &-block {
         background-color: brown;
         h2 {
-            font-size: 21px;
+            @include h2-text();
             margin-bottom: 15px;
-            font-weight: 500;
         }
     }
     &-buttons {
@@ -302,7 +324,6 @@ input {
         bottom: 60px;
         right: 50%;
         transform: translateX(50%);
-
         button:first-child {
             margin-bottom: 10px;
         }
@@ -346,12 +367,11 @@ input {
             margin-right: 0;
         }
     }
-    h3 {
-        font-size: 25px;
+    h2 {
+        @include h2-text();
         position: relative;
-        font-weight: 600;
         color: rgb(168, 37, 37);
-        text-shadow: 0.12em 0.12em rgba(155, 71, 71, 0.5);
+        text-shadow: 0.1em 0.1em rgba(155, 71, 71, 0.5);
         margin-bottom: 25px;
         &::after {
             content: "";
@@ -364,14 +384,13 @@ input {
         }
     }
     li {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
+        @include li-text();
+        display:inline-block;
         min-height: 40px;
-        margin: 5px 0;
-        color: rgb(14, 86, 119);
-        font-weight: 500;
+        margin: 8px 0;
+        span:first-child::after {
+            content: ' -';
+        }
     }
 
 }
@@ -383,10 +402,11 @@ input {
         width: 460px;
         height: 680px;
         h2 {
+            @include h2-text();
             text-align: center;
-            font-size: 21px;
+            text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
-            color:#252525;
+            color:rgb(247, 146, 64);
         }
     }
     &-add {
@@ -394,35 +414,27 @@ input {
         flex-direction: column;
         margin-bottom: 30px;
         label {
-            font-weight: 500;
-            font-size: 20px;
+            @include p-text();
+            text-shadow: none;
         }
         input {
-            margin-right: 10px;
             margin-bottom: 15px;
-        }
-        button {
-            width: 100px;
         }
     }
     &-list {
-        padding: 10px;
         border-radius: 8px;
-        margin: 0 auto;
         border:10px solid #fff;
         background-color:#fff;
-        height: 340px;
+        height: 320px;
         overflow-x: hidden;
         overflow-y: scroll;
         li {
-            padding: 6px 20px;
-            font-weight: 500;
-            color:rgb(56, 56, 56);
-            text-align: right;
+            @include li-text();
+            padding: 6px 10px;
             display: flex;
             justify-content: space-between;
-            span {
-                color:dodgerblue;
+            span:last-child {
+                text-align: right;
             }
         }
     }

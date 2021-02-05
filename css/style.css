@@ -1,3 +1,5 @@
+/* Variables */
+/* Mixins */
 /* Common settings */
 body {
   margin: 0;
@@ -82,6 +84,7 @@ button {
   padding: 6px 10px;
   width: 150px;
   transition: 0.2s;
+  box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
 }
 button:hover {
   color: #322b97;
@@ -203,19 +206,17 @@ input:focus {
   align-items: center;
 }
 .menu-title {
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  font-size: 35px;
   display: flex;
   align-items: center;
   flex: 1;
   color: #d0dd18;
-  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
 }
 .menu-buttons {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-.menu-btn {
-  box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
 }
 .menu-btn:first-child {
   margin-bottom: 10px;
@@ -231,12 +232,13 @@ input:focus {
 }
 
 .result-block {
-  background-color: #3d8dc2;
   display: flex;
-  text-shadow: 0.15em 0.15em rgba(0, 0, 0, 0.5);
   flex-direction: column;
+  background-color: #3d8dc2;
 }
 .result-block h2 {
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  font-size: 26px;
   position: relative;
   flex: 1;
   display: flex;
@@ -260,10 +262,10 @@ input:focus {
   bottom: 0px;
 }
 .result-block p {
-  font-size: 22px;
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-weight: 500;
-  width: 300px;
-  padding: 11px 0;
+  font-size: 22px;
+  padding: 10px 0;
 }
 .result-block button {
   margin: 4px auto;
@@ -272,14 +274,10 @@ input:focus {
   margin-bottom: 0;
 }
 .result-score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   flex: 1;
 }
 .result-buttons {
-  min-height: 100px;
-  max-height: 100px;
+  height: 100px;
   flex: 1;
 }
 
@@ -287,9 +285,9 @@ input:focus {
   background-color: brown;
 }
 .question-block h2 {
-  font-size: 21px;
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  font-size: 26px;
   margin-bottom: 15px;
-  font-weight: 500;
 }
 .question-buttons {
   position: absolute;
@@ -338,15 +336,15 @@ input:focus {
 .extended-results .result-list:last-child {
   margin-right: 0;
 }
-.extended-results h3 {
-  font-size: 25px;
+.extended-results h2 {
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  font-size: 26px;
   position: relative;
-  font-weight: 600;
   color: #a82525;
-  text-shadow: 0.12em 0.12em rgba(155, 71, 71, 0.5);
+  text-shadow: 0.1em 0.1em rgba(155, 71, 71, 0.5);
   margin-bottom: 25px;
 }
-.extended-results h3::after {
+.extended-results h2::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -356,14 +354,15 @@ input:focus {
   background-color: #b32121;
 }
 .extended-results li {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: 40px;
-  margin: 5px 0;
-  color: #0e5677;
   font-weight: 500;
+  font-size: 18px;
+  color: #0e5677;
+  display: inline-block;
+  min-height: 40px;
+  margin: 8px 0;
+}
+.extended-results li span:first-child::after {
+  content: " -";
 }
 
 /* Vocabulary block */
@@ -373,10 +372,12 @@ input:focus {
   height: 680px;
 }
 .vocabulary-block h2 {
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  font-size: 26px;
   text-align: center;
-  font-size: 21px;
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
-  color: #252525;
+  color: #f79240;
 }
 .vocabulary-add {
   display: flex;
@@ -384,36 +385,32 @@ input:focus {
   margin-bottom: 30px;
 }
 .vocabulary-add label {
+  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 22px;
+  text-shadow: none;
 }
 .vocabulary-add input {
-  margin-right: 10px;
   margin-bottom: 15px;
 }
-.vocabulary-add button {
-  width: 100px;
-}
 .vocabulary-list {
-  padding: 10px;
   border-radius: 8px;
-  margin: 0 auto;
   border: 10px solid #fff;
   background-color: #fff;
-  height: 340px;
+  height: 320px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 .vocabulary-list li {
-  padding: 6px 20px;
   font-weight: 500;
-  color: #383838;
-  text-align: right;
+  font-size: 18px;
+  color: #0e5677;
+  padding: 6px 10px;
   display: flex;
   justify-content: space-between;
 }
-.vocabulary-list li span {
-  color: dodgerblue;
+.vocabulary-list li span:last-child {
+  text-align: right;
 }
 
 /*# sourceMappingURL=style.css.map */
