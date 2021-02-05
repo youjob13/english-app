@@ -324,9 +324,15 @@ class TasksGenerate {
     if (document.querySelector(".question-block")) {
       this.popupConfirm("Your progress will be lost, are you sure?");
     }
+    if (document.querySelector(".extended-results")) {
+      this.deleteExtendedResults();
+    }
     if (document.querySelector(".vocabulary-block")) {
       this.openMenu();
     }
+  }
+  deleteExtendedResults() {
+    document.querySelector(".extended-results").remove();
   }
   deletePopup() {
     document.querySelector(".popup").remove();

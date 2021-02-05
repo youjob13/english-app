@@ -183,7 +183,6 @@ input {
     background-color:rgba(0,0,0,0.5);
     &-confirm {
         text-align: center;
-        color:#fff;
         background-color:rgb(81, 140, 248);
         &_buttons {
             height: 30px;
@@ -312,6 +311,10 @@ input {
 
 /* Extended results of the completed task */
 .extended-results {
+    & > .close-btn {
+        right: 0;
+        top: 0;
+    }
     overflow-y:scroll;
     overflow-x: hidden;
     width: 660px;
@@ -370,6 +373,7 @@ input {
         color: rgb(14, 86, 119);
         font-weight: 500;
     }
+
 }
 
 /* Vocabulary block */

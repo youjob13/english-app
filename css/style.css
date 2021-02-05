@@ -182,7 +182,6 @@ input:focus {
 }
 .popup-confirm {
   text-align: center;
-  color: #fff;
   background-color: #518cf8;
 }
 .popup-confirm_buttons {
@@ -310,6 +309,10 @@ input:focus {
   height: 600px;
   background-color: #eabcee;
   padding: 22px 40px;
+}
+.extended-results > .close-btn {
+  right: 0;
+  top: 0;
 }
 .extended-results_wrapper {
   display: flex;
