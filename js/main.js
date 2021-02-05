@@ -50,10 +50,10 @@ class TasksGenerate {
     menu.append(this.createCloseBtn());
     app.append(menu);
   }
-  createListVocabulary() {
+  createListVocabulary(btn = false) {
     const ul = document.createElement("ul");
     ul.classList.add("vocabulary-list");
-    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions, btn));
     return ul;
   }
   openVocabulary() {
@@ -98,7 +98,7 @@ class TasksGenerate {
     vocabularyBlock.append(h2);
     vocabularyBlock.append(addWordBlock);
     vocabularyBlock.append(h2List);
-    vocabularyBlock.append(this.createListVocabulary());
+    vocabularyBlock.append(this.createListVocabulary(true));
     vocabularyBlock.append(this.createCloseBtn());
     app.append(vocabularyBlock);
   }
@@ -202,7 +202,6 @@ class TasksGenerate {
         ...cloneArr.splice(this.digitalRandom(0, cloneArr.length - 1), 1)
       );
     });
-    console.log(this.swapsArr);
     this.askQuestion(this.swapsArr[0]);
   }
   giveAnswer() {
@@ -228,11 +227,15 @@ class TasksGenerate {
     this.swapsArr.splice(0, 1);
     this.askQuestion(this.swapsArr[0]);
   }
-  getListContent(answers) {
+  getListContent(answers, btn = false) {
     const fragment = new DocumentFragment();
-    answers.forEach((answer) => {
+    answers.forEach((answer, index) => {
       const li = document.createElement("li");
-      li.innerHTML = `<span>${answer.word}</span> <span>${answer.translation}</span>`;
+      li.innerHTML = `<span>${index + 1}. ${answer.word}</span> <span>${
+        answer.translation
+      }${
+        btn ? `<button class='delete-item ${answer.id}'>-</button></span>` : ""
+      }`;
       fragment.append(li);
     });
     return fragment;
@@ -283,7 +286,7 @@ class TasksGenerate {
   }
   addWord() {
     this.listQuestions.push({
-      id: 6,
+      id: Date.now(),
       word: this.inputValueNewWord,
       translation: this.inputValueNewWordTranslation,
     });
@@ -337,6 +340,14 @@ class TasksGenerate {
   deletePopup() {
     document.querySelector(".popup").remove();
   }
+  deleteItem(target) {
+    this.listQuestions = this.listQuestions.filter(
+      (question) => question.id !== +target.className.replace(/\w+-\w+\s+/, "")
+    );
+    localStorage.removeItem("vocabularyList");
+    localStorage.setItem("vocabularyList", JSON.stringify(this.listQuestions));
+    this.openVocabulary();
+  }
   eventsListener() {
     document.addEventListener("click", (e) => {
       if (e.target.closest("#start") || e.target.closest("#try-again")) {
@@ -369,12 +380,18 @@ class TasksGenerate {
       if (e.target.closest("#no")) {
         this.deletePopup();
       }
+      if (e.target.closest(".delete-item")) {
+        this.deleteItem(e.target);
+      }
     });
 
     document.addEventListener("keyup", (e) => {
       if (document.getElementById("add-word") && e.key === "Enter") {
-        console.log(1);
         this.addWord();
+      }
+      if (document.getElementById("give") && e.key === "Enter") {
+        console.log(1);
+        this.giveAnswer();
       }
     });
 

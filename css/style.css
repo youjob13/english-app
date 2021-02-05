@@ -409,8 +409,16 @@ input:focus {
   display: flex;
   justify-content: space-between;
 }
+.vocabulary-list li span {
+  display: flex;
+  align-items: center;
+}
 .vocabulary-list li span:last-child {
   text-align: right;
+}
+.vocabulary-list li span button {
+  width: 5px;
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=style.css.map */

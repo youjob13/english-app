@@ -433,8 +433,16 @@ input {
             padding: 6px 10px;
             display: flex;
             justify-content: space-between;
-            span:last-child {
-                text-align: right;
+            span {
+                display: flex;
+                align-items:center;
+                &:last-child {
+                    text-align: right;
+                }
+                button {
+                    width: 5px;
+                    box-shadow:none;
+                }
             }
         }
     }
