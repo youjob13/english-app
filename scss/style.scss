@@ -31,6 +31,37 @@ li {
     list-style: none;
 }
 
+/* Scroll Bar */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-button {
+    background-color: #666;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #999;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #666;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #999;
+}
+
+::-webkit-resizer {
+    background-color: #666;
+}
 /* Container */
 .container {
     max-width: 1200px;
@@ -318,8 +349,8 @@ input {
 .vocabulary {
     &-block {
         background-color:burlywood;
-        width: 400px;
-        height: 600px;
+        width: 460px;
+        height: 680px;
         h2 {
             text-align: center;
             font-size: 21px;
@@ -329,11 +360,19 @@ input {
     }
     &-add {
         display: flex;
-        height:30px;
+        flex-direction: column;
+        margin-bottom: 30px;
+        label {
+            font-weight: 500;
+            font-size: 20px;
+        }
         input {
             margin-right: 10px;
+            margin-bottom: 15px;
         }
-        margin-bottom: 60px;
+        button {
+            width: 100px;
+        }
     }
     &-list {
         padding: 10px;
@@ -341,13 +380,19 @@ input {
         margin: 0 auto;
         border:10px solid #fff;
         background-color:#fff;
-        width: 300px;
         height: 340px;
         overflow-x: hidden;
         overflow-y: scroll;
         li {
+            padding: 6px 20px;
             font-weight: 500;
             color:rgb(56, 56, 56);
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            span {
+                color:dodgerblue;
+            }
         }
     }
 }

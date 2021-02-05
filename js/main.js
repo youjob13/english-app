@@ -33,7 +33,9 @@ class TasksGenerate {
     this.loseAnswers = [];
     this.skipAnswers = [];
     this.swapsArr = [];
-    this.inputValue = "";
+    this.inputValueAnswer = "";
+    this.inputValueNewWord = "";
+    this.inputValueNewWordTranslation = "";
   }
   digitalRandom(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
@@ -72,6 +74,16 @@ class TasksGenerate {
     menu.append(this.createCloseBtn());
     app.append(menu);
   }
+  createListVocabulary() {
+    const ul = document.createElement("ul");
+    ul.classList.add("vocabulary-list");
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    ul.append(this.getListContent(this.listQuestions));
+    return ul;
+  }
   openVocabulary() {
     app.innerHTML = "";
 
@@ -84,8 +96,19 @@ class TasksGenerate {
     const h2 = document.createElement("h2");
     h2.textContent = "Write the word you would like to learn and add it";
 
-    const input = document.createElement("input");
-    input.id = "vocabulary-input";
+    const labelWord = document.createElement("label");
+    labelWord.setAttribute("for", "vocabulary-input_word");
+    labelWord.textContent = "Word";
+
+    const labelTranslation = document.createElement("label");
+    labelTranslation.setAttribute("for", "vocabulary-input_translation");
+    labelTranslation.textContent = "Translation";
+
+    const inputWord = document.createElement("input");
+    inputWord.id = "vocabulary-input_word";
+
+    const inputTranslation = document.createElement("input");
+    inputTranslation.id = "vocabulary-input_translation";
 
     const button = document.createElement("button");
     button.id = "add-word";
@@ -94,21 +117,16 @@ class TasksGenerate {
     const h2List = document.createElement("h2");
     h2List.textContent = "Added words";
 
-    const ul = document.createElement("ul");
-    ul.classList.add("vocabulary-list");
-
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
-    ul.append(this.getListContent(this.listQuestions));
-
-    addWordBlock.append(input);
+    addWordBlock.append(labelWord);
+    addWordBlock.append(inputWord);
+    addWordBlock.append(labelTranslation);
+    addWordBlock.append(inputTranslation);
     addWordBlock.append(button);
 
     vocabularyBlock.append(h2);
     vocabularyBlock.append(addWordBlock);
     vocabularyBlock.append(h2List);
-    vocabularyBlock.append(ul);
+    vocabularyBlock.append(this.createListVocabulary());
     vocabularyBlock.append(this.createCloseBtn());
     app.append(vocabularyBlock);
   }
@@ -214,20 +232,20 @@ class TasksGenerate {
     this.askQuestion(this.swapsArr[0]);
   }
   giveAnswer() {
-    if (this.inputValue.trim() === this.swapsArr[0].translation) {
+    if (this.inputValueAnswer.trim() === this.swapsArr[0].translation) {
       this.rightAnswers.push(this.swapsArr[0]);
-    } else if (!this.inputValue.trim()) {
+    } else if (!this.inputValueAnswer.trim()) {
       alert("Write something");
-      // !!! this.inputValue <- empty field !!!
+      // !!! this.inputValueAnswer <- empty field !!!
       return;
     } else {
       this.loseAnswers.push({
         ...this.swapsArr[0],
-        userAnswer: this.inputValue,
+        userAnswer: this.inputValueAnswer,
       });
     }
 
-    this.inputValue = "";
+    this.inputValueAnswer = "";
     this.swapsArr.splice(0, 1);
     this.askQuestion(this.swapsArr[0]);
   }
@@ -240,7 +258,7 @@ class TasksGenerate {
     const fragment = new DocumentFragment();
     answers.forEach((answer) => {
       const li = document.createElement("li");
-      li.append(answer.translation);
+      li.innerHTML = `<span>${answer.word}</span> <span>${answer.translation}</span>`;
       fragment.append(li);
     });
     return fragment;
@@ -286,6 +304,14 @@ class TasksGenerate {
 
     app.append(results);
   }
+  addWord() {
+    this.listQuestions.push({
+      id: 6,
+      word: this.inputValueNewWord,
+      translation: this.inputValueNewWordTranslation,
+    });
+    this.openVocabulary();
+  }
   eventsListener() {
     document.addEventListener("click", (e) => {
       if (e.target.closest("#start") || e.target.closest("#try-again")) {
@@ -306,12 +332,27 @@ class TasksGenerate {
       if (e.target.closest("#vocabulary")) {
         this.openVocabulary();
       }
+      if (e.target.closest("#add-word")) {
+        this.addWord();
+      }
     });
 
     document.addEventListener("input", (e) => {
       if (e.target.closest("#field-for-answer")) {
         e.target.value = e.target.value.replace(/[\d]/g, "");
-        this.inputValue = e.target.value;
+        this.inputValueAnswer = e.target.value;
+      }
+      if (e.target.closest("#vocabulary-input_word")) {
+        e.target.value = e.target.value
+          .replace(/[^a-z]/gi, "")
+          .replace(/^[a-z]/, (u) => u.toUpperCase());
+        this.inputValueNewWord = e.target.value;
+      }
+      if (e.target.closest("#vocabulary-input_translation")) {
+        e.target.value = e.target.value
+          .replace(/[^а-я]/gi, "")
+          .replace(/^[а-я]/, (u) => u.toUpperCase());
+        this.inputValueNewWordTranslation = e.target.value;
       }
     });
   }
