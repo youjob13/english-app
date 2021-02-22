@@ -1,3 +1,5 @@
+window.SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 const app = document.querySelector(".app");
 
 class TasksGenerate {
@@ -11,6 +13,7 @@ class TasksGenerate {
     this.inputValueAnswer = "";
     this.inputValueNewWord = "";
     this.inputValueNewWordTranslation = "";
+    this.recognition = new SpeechRecognition();
   }
   digitalRandom(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
@@ -103,6 +106,7 @@ class TasksGenerate {
     app.append(vocabularyBlock);
   }
   giveResult() {
+    this.recognition.interimResults = false;
     app.innerHTML = "";
 
     const resultBlock = document.createElement("div");
@@ -348,7 +352,36 @@ class TasksGenerate {
     localStorage.setItem("vocabularyList", JSON.stringify(this.listQuestions));
     this.openVocabulary();
   }
+  speechDetection(e) {
+    const transcript = Array.from(e.results)
+      .map((result) => result[0])
+      .map((result) => result.transcript)
+      .join("");
+
+    if (transcript.includes("start")) {
+      this.startTask();
+      this.recognition.interimResults = false;
+    }
+    if (transcript.includes("finish off")) {
+      this.openMenu();
+    }
+    if (transcript.includes("vocabulary")) {
+      this.openVocabulary();
+    }
+    if (transcript.includes("show")) {
+      this.showResults();
+    }
+  }
   eventsListener() {
+    this.recognition.interimResults = true;
+    this.recognition.addEventListener(
+      "result",
+      this.speechDetection.bind(this)
+    );
+    this.recognition.addEventListener("end", this.recognition.start);
+
+    this.recognition.start();
+
     document.addEventListener("click", (e) => {
       if (e.target.closest("#start") || e.target.closest("#try-again")) {
         this.startTask();
