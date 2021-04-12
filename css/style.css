@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #495555;
 }
 
 *,
@@ -71,7 +72,7 @@ li {
   margin: 0 auto;
 }
 
-/* Common tags / classes */
+/* Common styles */
 button {
   margin: 0 auto;
   display: block;
@@ -81,21 +82,25 @@ button {
   font-weight: 600;
   color: #111111;
   cursor: pointer;
-  padding: 6px 10px;
+  height: 32px;
   width: 150px;
   transition: 0.2s;
-  box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 button:hover {
-  color: #322b97;
+  background-color: #9be0d1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   font-size: 16px;
+  z-index: 9;
   outline: none;
 }
 button:active {
   padding: 5px 10px;
   font-size: 14px;
+  z-index: 9;
   width: 140px;
-  color: #0644f0;
+  color: #574a28;
 }
 button:focus {
   outline: none;
@@ -111,20 +116,19 @@ input:focus {
   outline: none;
 }
 
-.block {
+.main-section {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   padding: 30px 20px;
 }
 
 .close-btn {
   position: absolute;
-  right: -20px;
-  top: -20px;
+  right: -30px;
+  top: 20px;
   height: 20px;
   width: 20px;
   box-shadow: 0.3em 0.3em rgba(0, 0, 0, 0.5);
@@ -134,28 +138,16 @@ input:focus {
   transition: 0.2s;
 }
 .close-btn:hover {
-  right: -28px;
-  top: -28px;
-  height: 28px;
-  width: 28px;
+  transform: scale(1.4);
   background-color: #d8260f;
   box-shadow: 0.5em 0.5em rgba(0, 0, 0, 0.5);
 }
 .close-btn:hover::after, .close-btn:hover::before {
-  width: 4px;
-  height: 17px;
   background-color: #f8d5d5;
 }
 .close-btn:active {
-  right: -23px;
-  top: -23px;
-  height: 23px;
+  transform: scale(1.1);
   background-color: #610000;
-  width: 23px;
-}
-.close-btn:active::after, .close-btn:active::before {
-  width: 3px;
-  height: 12px;
 }
 .close-btn::after, .close-btn::before {
   content: "";
@@ -174,6 +166,7 @@ input:focus {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/* App */
 /* Popup */
 .popup {
   position: absolute;
@@ -197,7 +190,6 @@ input:focus {
 
 /* Menu */
 .menu {
-  background-color: #12f79f;
   height: 300px;
   width: 500px;
   transform: translate(-50%, -50%);
@@ -206,12 +198,12 @@ input:focus {
   align-items: center;
 }
 .menu-title {
-  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
-  font-size: 35px;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  font-size: 50px;
   display: flex;
   align-items: center;
   flex: 1;
-  color: #d0dd18;
+  color: #a3eeee;
 }
 .menu-buttons {
   display: flex;
@@ -229,6 +221,7 @@ input:focus {
   height: 380px;
   color: #fff;
   text-align: center;
+  box-shadow: 0 0 25px 2px rgba(0, 0, 0, 0.2);
 }
 
 .result-block {
@@ -236,7 +229,7 @@ input:focus {
   flex-direction: column;
   background-color: #3d8dc2;
 }
-.result-block h2 {
+.result-block h3 {
   text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-size: 26px;
   position: relative;
@@ -245,7 +238,7 @@ input:focus {
   align-items: center;
   justify-content: center;
 }
-.result-block h2::before, .result-block h2::after {
+.result-block h3::before, .result-block h3::after {
   content: "";
   width: 100%;
   height: 2px;
@@ -255,10 +248,10 @@ input:focus {
   right: 50%;
   transform: translateX(50%);
 }
-.result-block h2::before {
+.result-block h3::before {
   top: 0px;
 }
-.result-block h2::after {
+.result-block h3::after {
   bottom: 0px;
 }
 .result-block p {
@@ -284,7 +277,7 @@ input:focus {
 .question-block {
   background-color: brown;
 }
-.question-block h2 {
+.question-block h3 {
   text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-size: 26px;
   margin-bottom: 15px;
@@ -303,14 +296,14 @@ input:focus {
 .extended-results {
   overflow-y: scroll;
   overflow-x: hidden;
-  width: 660px;
-  height: 600px;
+  width: 95%;
+  height: 95%;
   background-color: #eabcee;
   padding: 22px 40px;
 }
 .extended-results > .close-btn {
   right: 0;
-  top: 0;
+  top: 30px;
 }
 .extended-results_wrapper {
   display: flex;
@@ -336,15 +329,15 @@ input:focus {
 .extended-results .result-list:last-child {
   margin-right: 0;
 }
-.extended-results h2 {
+.extended-results h3 {
   text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-size: 26px;
   position: relative;
   color: #a82525;
-  text-shadow: 0.1em 0.1em rgba(155, 71, 71, 0.5);
+  text-shadow: none;
   margin-bottom: 25px;
 }
-.extended-results h2::after {
+.extended-results h3::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -368,16 +361,17 @@ input:focus {
 /* Vocabulary block */
 .vocabulary-block {
   background-color: burlywood;
-  width: 460px;
+  width: 500px;
   height: 680px;
 }
-.vocabulary-block h2 {
+.vocabulary-block h3 {
   text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
   font-size: 26px;
   text-align: center;
-  text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  text-shadow: none;
   margin-bottom: 20px;
-  color: #f79240;
+  color: #da6314;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 .vocabulary-add {
   display: flex;

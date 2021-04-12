@@ -1,3 +1,6 @@
+// autofocus
+// speech detection
+// recopy on React
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const app = document.querySelector(".app");
@@ -27,11 +30,11 @@ class TasksGenerate {
   openMenu() {
     app.innerHTML = "";
     const menu = document.createElement("div");
-    menu.classList.add("block", "menu");
+    menu.classList.add("main-section", "menu");
 
-    const h1 = document.createElement("h1");
-    h1.classList.add("menu-title");
-    h1.textContent = "Welcome!";
+    const h2 = document.createElement("h2");
+    h2.classList.add("menu-title");
+    h2.textContent = "Welcome!";
 
     const menuButtons = document.createElement("div");
     menuButtons.classList.add("menu-buttons");
@@ -48,9 +51,8 @@ class TasksGenerate {
 
     menuButtons.append(startBtn);
     menuButtons.append(vocabularyBtn);
-    menu.append(h1);
+    menu.append(h2);
     menu.append(menuButtons);
-    menu.append(this.createCloseBtn());
     app.append(menu);
   }
   createListVocabulary(btn = false) {
@@ -63,13 +65,13 @@ class TasksGenerate {
     app.innerHTML = "";
 
     const vocabularyBlock = document.createElement("div");
-    vocabularyBlock.classList.add(`block`, `vocabulary-block`);
+    vocabularyBlock.classList.add(`main-section`, `vocabulary-block`);
 
     const addWordBlock = document.createElement("div");
     addWordBlock.classList.add("vocabulary-add");
 
-    const h2 = document.createElement("h2");
-    h2.textContent = "Write the word you would like to learn and add it";
+    const h3 = document.createElement("h3");
+    h3.textContent = "Write the word you would like to learn and add it";
 
     const labelWord = document.createElement("label");
     labelWord.setAttribute("for", "vocabulary-input_word");
@@ -89,8 +91,8 @@ class TasksGenerate {
     button.id = "add-word";
     button.textContent = "Add word";
 
-    const h2List = document.createElement("h2");
-    h2List.textContent = "Added words";
+    const h3List = document.createElement("h3");
+    h3List.textContent = "Added words";
 
     addWordBlock.append(labelWord);
     addWordBlock.append(inputWord);
@@ -98,9 +100,9 @@ class TasksGenerate {
     addWordBlock.append(inputTranslation);
     addWordBlock.append(button);
 
-    vocabularyBlock.append(h2);
+    vocabularyBlock.append(h3);
     vocabularyBlock.append(addWordBlock);
-    vocabularyBlock.append(h2List);
+    vocabularyBlock.append(h3List);
     vocabularyBlock.append(this.createListVocabulary(true));
     vocabularyBlock.append(this.createCloseBtn());
     app.append(vocabularyBlock);
@@ -110,10 +112,10 @@ class TasksGenerate {
     app.innerHTML = "";
 
     const resultBlock = document.createElement("div");
-    resultBlock.classList.add("block", "result-block");
+    resultBlock.classList.add("main-section", "result-block");
 
-    const h2 = document.createElement("h2");
-    h2.textContent = "Decision result";
+    const h3 = document.createElement("h3");
+    h3.textContent = "Decision result";
 
     const resultScore = document.createElement("div");
     resultScore.classList.add("result-score");
@@ -150,11 +152,10 @@ class TasksGenerate {
     resultScore.append(pWrong);
     resultScore.append(pPassed);
 
-    resultBlock.append(h2);
+    resultBlock.append(h3);
     resultBlock.append(resultScore);
     resultBlock.append(resultButtons);
 
-    resultBlock.append(this.createCloseBtn());
     app.append(resultBlock);
   }
   askQuestion(question) {
@@ -163,10 +164,10 @@ class TasksGenerate {
     } else {
       app.innerHTML = "";
       const questionBlock = document.createElement("div");
-      questionBlock.classList.add("block", "question-block");
+      questionBlock.classList.add("main-section", "question-block");
 
-      const h2 = document.createElement("h2");
-      h2.textContent = `${question.word}`;
+      const h3 = document.createElement("h3");
+      h3.textContent = `${question.word}`;
 
       const input = document.createElement("input");
       input.type = "text";
@@ -187,7 +188,7 @@ class TasksGenerate {
       questionButtons.append(answerBtn);
       questionButtons.append(skipBtn);
 
-      questionBlock.append(h2);
+      questionBlock.append(h3);
       questionBlock.append(input);
       questionBlock.append(questionButtons);
 
@@ -247,7 +248,7 @@ class TasksGenerate {
   }
   showResults() {
     const results = document.createElement("div");
-    results.classList.add("block", "extended-results");
+    results.classList.add("main-section", "extended-results");
 
     const resultsWrapper = document.createElement("div");
     resultsWrapper.classList.add("extended-results_wrapper");
@@ -259,9 +260,9 @@ class TasksGenerate {
     const resultsSkip = document.createElement("div");
     resultsSkip.classList.add("result-list");
 
-    const h3Right = document.createElement("h2");
-    const h3Lose = document.createElement("h2");
-    const h3Skip = document.createElement("h2");
+    const h3Right = document.createElement("h3");
+    const h3Lose = document.createElement("h3");
+    const h3Skip = document.createElement("h3");
     h3Right.textContent = "Right";
     h3Lose.textContent = "Wrong";
     h3Skip.textContent = "Passed";
@@ -303,9 +304,9 @@ class TasksGenerate {
     popup.classList.add("popup");
 
     const popupConfirm = document.createElement("div");
-    popupConfirm.classList.add("block", "popup-confirm");
+    popupConfirm.classList.add("main-section", "popup-confirm");
 
-    const popupNotice = document.createElement("h2");
+    const popupNotice = document.createElement("h3");
     popupNotice.textContent = `${title}`;
 
     const buttonsBlock = document.createElement("div");
