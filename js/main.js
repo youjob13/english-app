@@ -170,6 +170,7 @@ class TasksGenerate {
 
       const input = document.createElement("input");
       input.type = "text";
+      input.setAttribute("autofocus", "autofocus");
       input.id = "field-for-answer";
 
       const questionButtons = document.createElement("div");
@@ -362,9 +363,17 @@ class TasksGenerate {
       this.startTask();
       this.recognition.interimResults = false;
     }
-    if (transcript.includes("finish off")) {
+    // разобраться и переписать
+    if (transcript.includes("stop")) {
+      this.createPopup();
+    }
+    if (transcript.includes("yes")) {
       this.openMenu();
     }
+    if (transcript.includes("no")) {
+      this.deletePopup();
+    }
+    // разобраться и переписать
     if (transcript.includes("vocabulary")) {
       this.openVocabulary();
     }
@@ -423,7 +432,6 @@ class TasksGenerate {
         this.addWord();
       }
       if (document.getElementById("give") && e.key === "Enter") {
-        console.log(1);
         this.giveAnswer();
       }
     });
